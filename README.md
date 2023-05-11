@@ -8,13 +8,13 @@ The `neutron-1` chain will be launched as a consumer chain with Cosmos Hub netwo
 
 Below are the `neutron-1` chain parameters:
 
-| Name                    | Value                        |
-|-------------------------|------------------------------|
-| **chain-id**            | `neutron-1`                  |
-| **denom**               | `untrn`                      |
-| **minimum-gas-prices**  | `0.01untrn`                  |
-| **timeout_commit**      | `1s`                         |
-| **genesis_time**        | `2023-05-10T15:00:00.000000Z`|
+| Name                    | Value                                                                               |
+|-------------------------|-------------------------------------------------------------------------------------|
+| **chain-id**            | `neutron-1`                                                                         |
+| **denom**               | `untrn`                                                                             |
+| **minimum-gas-prices**  | `0.01untrn,0.05ibc/C4CFF46FD6DE35CA4CF4CE031E643C8FDC9BA4B99AE598E9B0ED98FE3A2319F9`|
+| **timeout_commit**      | `1s`                                                                                |
+| **genesis_time**        | `2023-05-10T15:00:00.000000Z`                                                       |
 
 **The `minimum-gas-prices` parameter must be set to `0.01untrn`.** At chain launch (and until the end of the Token Generation Event) the only address that will have `untrn`s will be the initial Hermes relayer. This relayer will be configured to **only** process `Transfer` messages between Neutron and Cosmos Hub. As soon as the chain starts, some `uatoms` will be transferred from Cosmos Hub to Neutron and the bridged ATOM denom will be communicated to the validators. After that, the validators will be able to set the `minimum-gas-prices` in bridged ATOMs.
 
@@ -138,6 +138,16 @@ The following state sync node serve snapshots every 2000 blocks:
 | Neutron            | v1.0.1   |
 | Go                 | >1.20    |
 
+### Recommended P2P Params 
+The default Cosmos SDK value significantly reduce the health of the P2P layer. Validator who would like to help foster a well connected P2P layer should consider updating the following parameters which can be found in config.toml
+
+**Maximum number of inbound peers**
+
+max_num_inbound_peers = 200
+
+**Maximum number of outbound peers to connect to, excluding persistent peers**
+
+max_num_outbound_peers = 100
 
 ### Node manual installation
 
